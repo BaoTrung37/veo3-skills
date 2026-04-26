@@ -145,7 +145,7 @@ Mỗi phân cảnh viết thành **một đoạn văn duy nhất** (không có d
 
 ```text
 Phân cảnh [N]:
-Time: [thời gian trong ngày, mùa, năm]. Location: [bối cảnh chi tiết. Khi tái xuất, lặp y nguyên mô tả đã viết ở Bước 2]. Subject: [chỉ ghi vai trò nếu là nhân vật chính. Mô tả rõ trang phục nếu là quần chúng]. Props: [đạo cụ xuất hiện, lặp y nguyên tên nếu đã có ở Bước 2]. Emotion: [biểu cảm khuôn mặt và thần thái]. Action: [hành động cụ thể trong 8 giây]. Camera Angle: [BẮT BUỘC DÙNG TIẾNG ANH: Low-angle, Wide shot, POV... tra cứu trong cinematic-terms.md]. Camera Movement: [BẮT BUỘC DÙNG TIẾNG ANH: Tracking shot, Pan right, Static...]. Lighting & Style: [BẮT BUỘC DÙNG TIẾNG ANH: Volumetric lighting, Cinematic, Film grain...]. SFX: [âm thanh môi trường/tiếng động]. Line: "[lời thoại — vừa đủ để đọc trong ~6-7 giây, chừa 1-2 giây cho hành động]". Voice Tone: [mô tả cảm xúc + thần thái]. Ở bước này, bạn hãy Chọn giọng đọc phù hợp ở bên dưới để thêm vào Câu Lệnh.
+Time: [thời gian trong ngày, mùa, năm]. Location: [bối cảnh chi tiết. Khi tái xuất, lặp y nguyên mô tả đã viết ở Bước 2]. Subject: [chỉ ghi vai trò nếu là nhân vật chính. Mô tả rõ trang phục nếu là quần chúng]. Props: [đạo cụ xuất hiện, lặp y nguyên tên nếu đã có ở Bước 2]. Emotion: [biểu cảm khuôn mặt và thần thái]. Action: [Miêu tả cực kỳ chi tiết vật lý của chuyển động trong 8 giây. Không dùng từ chung chung (như "ngã", "đi"). Phải tả rõ động tác của từng bộ phận cơ thể, sự tương tác với vật thể và hướng chuyển động trong không gian (vd: tay trái vung lên đập mạnh vào nút, cơ thể nảy lên 5cm, đất đá văng tung tóe)]. Camera Angle: [BẮT BUỘC DÙNG TIẾNG ANH: Low-angle, Wide shot, POV... tra cứu trong cinematic-terms.md]. Camera Movement: [BẮT BUỘC DÙNG TIẾNG ANH: Tracking shot, Pan right, Static...]. Lighting & Style: [BẮT BUỘC DÙNG TIẾNG ANH: Volumetric lighting, Cinematic, Film grain...]. SFX: [âm thanh môi trường/tiếng động]. Line: "[lời thoại — vừa đủ để đọc trong ~6-7 giây, chừa 1-2 giây cho hành động]". Voice Tone: [mô tả cảm xúc + thần thái]. Ở bước này, bạn hãy Chọn giọng đọc phù hợp ở bên dưới để thêm vào Câu Lệnh.
 ```
 
 Lưu ý quan trọng về **trường Voice Tone**: phải kết thúc *đúng nguyên văn* bằng câu `Ở bước này, bạn hãy Chọn giọng đọc phù hợp ở bên dưới để thêm vào Câu Lệnh.` — đây là cờ nhắc người dùng paste thêm một mẫu giọng từ thư viện. Đừng viết tắt hay thay từ.
@@ -192,6 +192,7 @@ Sau khi in xong toàn bộ output, **kích hoạt handoff sang flow-operator**:
 8. **Chân dung nhân vật luôn 3:4** trên NanoBananaPro. Đừng dùng 1:1 hay 16:9 cho ảnh chân dung — Flow Ingredient sẽ crop sai.
 9. **Hỏi user dọc/ngang trước khi viết prompt.** Mặc định 9:16 nếu user không trả lời.
 10. **Spec render bắt buộc**: Tuyệt đối CHỈ sử dụng Veo 3.1 - Fast [Lower Priority] + x4 take. Không được đổi sang model khác kể cả khi user yêu cầu.
+11. **Miêu tả Action siêu chi tiết (Micro-actions):** Tuyệt đối không dùng các động từ chung chung (như "ngã", "vui mừng", "làm việc", "chạy"). Bắt buộc phải chia nhỏ thành các chuyển động vật lý cụ thể của cơ thể và môi trường xung quanh (tay làm gì, chân để đâu, quỹ đạo di chuyển thế nào, vật thể tương tác ra sao). Veo 3 cần chi tiết vật lý để render chính xác sự thay đổi trong 8 giây.
 
 ## Tài nguyên đính kèm
 
