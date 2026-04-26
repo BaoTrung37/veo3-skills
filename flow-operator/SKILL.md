@@ -38,6 +38,8 @@ Skill này điều khiển browser để thực hiện toàn bộ quy trình Goo
 > ⚠️ **VIDEO LUÔN DỌC 9:16.** Mọi Shot video đều đặt 9:16 — không có ngoại lệ trừ khi user gõ tường minh "tôi cần ngang 16:9".
 >
 > ⚠️ **PHẢI CÓ ẢNH THAM CHIẾU** cho mọi phân cảnh có: người (dù chính hay phụ) / đồ vật đặc trưng / bối cảnh cụ thể. Chỉ bỏ qua nếu phân cảnh là cảnh trừu tượng/thiên nhiên không có người/vật.
+>
+> 🔒 **MODEL CỐ ĐỊNH: `Veo 3.1 - Fast [Lower Priority]` — KHÔNG ĐƯỢC DÙNG MODEL KHÁC.** Dù UI hiển thị model nào là mặc định, luôn luôn chủ động chọn lại đúng model này trước khi Generate.
 
 Lý do skill tồn tại: sau khi `veo3-script-writer` sinh ra 5-15 phân cảnh kèm Image Asset Brief, người dùng phải paste thủ công từng mô tả vào Flow, sinh ảnh, đặt nhãn, rồi lại paste từng prompt 12 dòng vào từng Shot — lặp đi lặp lại và dễ nhầm. Skill này tự hóa toàn bộ phần thao tác đó.
 
@@ -60,10 +62,18 @@ Trước khi mở browser, **đọc và parse** toàn bộ output từ `veo3-scr
 **Checklist đầu vào bắt buộc:**
 - [ ] **Image Asset Brief**: danh sách entity (nhân vật / bối cảnh / đồ vật / con vật) với mô tả, aspect ratio, số ảnh, tên Ingredient gợi ý.
 - [ ] **Danh sách prompt phân cảnh**: N khối 12 dòng (Time → Voice Tone).
-- [ ] **Tên project** (lấy từ tên kịch bản hoặc hỏi user).
-- [ ] **Flow project URL** (nếu đã có sẵn) hoặc cần tạo mới.
+- [ ] **Tên project + URL**: Xem mục "Quy tắc 1 Project" bên dưới.
 
 > Spec render mặc định cố định: **Video / 9:16 / x4 / Veo 3.1 - Fast [Lower Priority] / 8s** — không cần hỏi user.
+> 🔒 Model **BẮT BUỘC** là `Veo 3.1 - Fast [Lower Priority]`. Nếu không tìm thấy option này trong dropdown → dừng lại, báo user ngay, KHÔNG dùng model khác thay thế.
+
+> 🔒 **QUY TẮC 1 PROJECT — TUYỆT ĐỐI KHÔNG VI PHẠM:**
+> Mỗi dự án (series, phim, chiến dịch quảng cáo) chỉ được dùng **DUY NHẤT 1 project Flow** xuyên suốt.
+> - Nếu user **chưa cung cấp tên project hoặc URL** → **BẮT BUỘC hỏi user** trước khi mở browser:
+>   `"Bạn đã có project Flow cho dự án này chưa? Nếu có, hãy cho tôi URL. Nếu chưa, tôi sẽ tạo mới."`
+> - Nếu user **đã cung cấp URL** → mở thẳng URL đó, **KHÔNG tạo project mới**.
+> - **KHÔNG BAO GIỜ tự ý tạo project mới** khi đã có project cũ, dù project cũ ở tab khác hay browser khác.
+> - Lý do: Ingredients (ảnh tham chiếu) lưu theo project. Tạo project mới = mất toàn bộ Ingredients cũ = phải gen lại từ đầu.
 
 Trước khi mở browser, **đếm số Ingredients cần tạo** (từ Image Asset Brief) và số Shot cần tạo (từ danh sách phân cảnh). Nếu thiếu bất kỳ mục nào → hỏi user.
 
@@ -90,8 +100,9 @@ Bạn đã đăng nhập Google Account trên browser chưa? (Gõ "rồi" để 
 
 Dùng `browser_subagent` để:
 
-1. **Nếu có URL project**: mở thẳng URL đó.
-2. **Nếu chưa có project**: mở `https://labs.google/fx/tools/flow/` → tìm nút **New Project** → click → đặt tên project → xác nhận đã tạo xong.
+1. **Nếu có URL project (do user cung cấp)**: mở thẳng URL đó — **KHÔNG làm gì khác**.
+2. **Nếu chưa có URL** nhưng user đã xác nhận muốn tạo mới: mở `https://labs.google/fx/vi/tools/flow/` → tìm nút **New Project** → click → đặt tên project theo tên dự án → **sao chép URL mới và báo user ngay** để lưu lại.
+3. **Nếu chưa hỏi user** về URL → **DỪNG tại đây**, quay lại Phase 0 hỏi trước.
 
 **Xử lý lỗi:**
 - Nếu trang yêu cầu đăng nhập → dừng, báo user: "Bạn cần đăng nhập Google Account trên browser trước. Sau khi đăng nhập xong, gõ 'tiếp tục' để Antigravity tiếp quản."
@@ -190,7 +201,7 @@ Với **mỗi phân cảnh** trong danh sách prompt, thực hiện:
 | Loại | Tab **"Video"** | Click tab Video (không phải Image/Frames/Ingredients) |
 | Aspect Ratio | "9:16" / "16:9" | **9:16** (hoặc theo spec) |
 | Output Count | dãy "x1 / x2 / x3 / x4" | **x4** |
-| Model + Priority | Dropdown: "Veo 3.1 - Fast [Lower Priority]" | **Veo 3.1 - Fast [Lower Priority]** |
+| Model + Priority | Dropdown: "Veo 3.1 - Fast [Lower Priority]" | **🔒 Veo 3.1 - Fast [Lower Priority]** ← CỐ ĐỊNH, không thay đổi |
 | Duration | dãy "4s / 6s / 8s" | **8s** |
 6. Attach Ingredients:
    - Xác định Ingredients cần gắn cho phân cảnh này dựa trên Subject, Location và các đồ vật trong prompt.
@@ -282,6 +293,10 @@ Nếu sau khi render, người dùng quay lại và nói "cảnh X bị lỗi", 
 11. **Báo tiến độ sau mỗi Ingredient và mỗi Shot** — không im lặng làm hàng loạt.
 12. **Khi gặp UI thay đổi:** chụp screenshot, mô tả, hỏi user — không đoán mò.
 13. **Không tự export video** — user tự chọn take và ghép timeline.
+14. **TIẾNG VIỆT / Unicode:** Browser agent KHÔNG gõ được tiếng Việt qua keystroke vì thiếu IME (Unikey). Khi cần nhập text có dấu (ví dụ thoại `Line:` bằng tiếng Việt), **BẮT BUỘC** dùng một trong hai cách:
+    - **Ưu tiên — JavaScript inject:** `element.value = "<text có dấu>"; element.dispatchEvent(new Event('input', {bubbles:true}));`
+    - **Dự phòng — Clipboard paste:** Copy text vào clipboard trước, focus vào ô input, gửi `Ctrl+V` — bỏ qua IME hoàn toàn.
+    - *Lưu ý:* Phần prompt Veo (Time, Location, Action...) luôn viết tiếng Anh nên không bị ảnh hưởng. Chỉ trường `Line: "..."` mới cần xử lý đặc biệt nếu thoại là tiếng Việt.
 
 ---
 
@@ -313,3 +328,4 @@ Nếu sau khi render, người dùng quay lại và nói "cảnh X bị lỗi", 
 - **Quên gắn Ingredients vào Shot** → Veo sinh nhân vật/bối cảnh ngẫu nhiên, không nhất quán.
 - **Sửa wording prompt khi paste** → lặp y nguyên, không "cải thiện" hay tóm tắt.
 - **Đặt nhãn Ingredient khác tên gợi ý** → không khớp khi cần reshoot sau này.
+- **Gõ tiếng Việt bằng keystroke** → KHÔNG hoạt động, agent không có IME. Phải dùng JS inject hoặc clipboard paste (xem quy tắc số 14).
