@@ -15,15 +15,23 @@ Kho lưu trữ này chứa bộ kỹ năng (skills) và prompt cấu hình cho c
 
 ## 🛠 Hướng dẫn Cài đặt & Sử dụng (Trên máy mới)
 
-### Cách 1: Tải về qua Git (Khuyên dùng)
+### Cách 1: Cài đặt tự động bằng script (Khuyên dùng)
 
-1. Mở Terminal (Command Prompt hoặc PowerShell).
-2. Chạy lệnh sau để clone (tải) toàn bộ mã nguồn về máy:
+Trên máy mới (Linux, Mac hoặc Git Bash trên Windows), bạn chỉ cần chạy dòng lệnh sau trên Terminal để tự động tải/cập nhật toàn bộ skills:
+
+```bash
+curl -s https://raw.githubusercontent.com/BaoTrung37/veo3-skills/main/skills.sh | bash
+```
+Sau khi chạy, mã nguồn sẽ tự động lưu vào thư mục `~/.agents`.
+Bạn có thể mở từng thư mục và copy nội dung file **`SKILL.md`** để cấu hình cho Agent.
+
+### Cách 2: Tải về qua Git thủ công
+
+1. Mở Terminal và chạy lệnh:
    ```bash
-   git clone https://github.com/BaoTrung37/veo3-skills.git
+   git clone https://github.com/BaoTrung37/veo3-skills.git ~/.agents
    ```
-3. Mở thư mục `veo3-skills` bằng Code Editor (như VS Code).
-4. Bên trong mỗi thư mục agent (ví dụ `veo3-script-writer`), bạn sẽ thấy file **`SKILL.md`**. Copy toàn bộ nội dung của file này dán vào phần cấu hình Prompt / System Instruction của Agent tương ứng.
+2. Mở thư mục `~/.agents` và lấy nội dung file **`SKILL.md`** trong từng thư mục.
 
 ### Cách 2: Tải trực tiếp file ZIP
 
