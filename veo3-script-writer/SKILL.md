@@ -145,7 +145,7 @@ Mỗi phân cảnh viết thành **một đoạn văn duy nhất** (không có d
 
 ```text
 Phân cảnh [N]:
-Time: [thời gian trong ngày, mùa, năm]. Location: [bối cảnh chi tiết. Khi tái xuất, lặp y nguyên mô tả đã viết ở Bước 2]. Subject: [chỉ ghi vai trò nếu là nhân vật chính. Mô tả rõ trang phục nếu là quần chúng]. Props: [đạo cụ xuất hiện, lặp y nguyên tên nếu đã có ở Bước 2]. Emotion: [biểu cảm khuôn mặt và thần thái]. Action: [hành động cụ thể trong 8 giây]. Camera Angle: [góc đặt máy: cận, trung, toàn, mắt chim, low angle...]. Camera Movement: [chuyển động của máy quay: tĩnh, lia máy, đẩy vào, tracking...]. Lighting & Style: [ánh sáng và phong cách hình ảnh (cinematic, photorealistic...)]. SFX: [âm thanh môi trường/tiếng động]. Line: "[lời thoại — vừa đủ để đọc trong ~6-7 giây, chừa 1-2 giây cho hành động]". Voice Tone: [mô tả cảm xúc + thái độ]. Ở bước này, bạn hãy Chọn giọng đọc phù hợp ở bên dưới để thêm vào Câu Lệnh.
+Time: [thời gian trong ngày, mùa, năm]. Location: [bối cảnh chi tiết. Khi tái xuất, lặp y nguyên mô tả đã viết ở Bước 2]. Subject: [chỉ ghi vai trò nếu là nhân vật chính. Mô tả rõ trang phục nếu là quần chúng]. Props: [đạo cụ xuất hiện, lặp y nguyên tên nếu đã có ở Bước 2]. Emotion: [biểu cảm khuôn mặt và thần thái]. Action: [hành động cụ thể trong 8 giây]. Camera Angle: [BẮT BUỘC DÙNG TIẾNG ANH: Low-angle, Wide shot, POV... tra cứu trong cinematic-terms.md]. Camera Movement: [BẮT BUỘC DÙNG TIẾNG ANH: Tracking shot, Pan right, Static...]. Lighting & Style: [BẮT BUỘC DÙNG TIẾNG ANH: Volumetric lighting, Cinematic, Film grain...]. SFX: [âm thanh môi trường/tiếng động]. Line: "[lời thoại — vừa đủ để đọc trong ~6-7 giây, chừa 1-2 giây cho hành động]". Voice Tone: [mô tả cảm xúc + thần thái]. Ở bước này, bạn hãy Chọn giọng đọc phù hợp ở bên dưới để thêm vào Câu Lệnh.
 ```
 
 Lưu ý quan trọng về **trường Voice Tone**: phải kết thúc *đúng nguyên văn* bằng câu `Ở bước này, bạn hãy Chọn giọng đọc phù hợp ở bên dưới để thêm vào Câu Lệnh.` — đây là cờ nhắc người dùng paste thêm một mẫu giọng từ thư viện. Đừng viết tắt hay thay từ.
@@ -198,6 +198,7 @@ Sau khi in xong toàn bộ output, **kích hoạt handoff sang flow-operator**:
 Đọc thêm khi cần:
 
 - `references/voice-tones.md` — thư viện 8 nhóm giọng đọc mẫu (quảng cáo, kể chuyện, học sinh, giáo viên, cổ tích, lịch sử...). Chọn 2-3 giọng phù hợp nhất với kịch bản, đừng dump cả thư viện.
+- `references/cinematic-terms.md` — từ điển thuật ngữ máy quay, ánh sáng và phong cách (tiếng Anh). Bạn **bắt buộc** phải sử dụng các từ vựng trong file này để điền vào trường Camera Angle, Camera Movement, và Lighting & Style, tuyệt đối không dùng tiếng Việt.
 - `references/example-output.md` — một ví dụ đầy đủ từ kịch bản ngắn → output cuối, để đối chiếu định dạng.
 - `references/flow-guide.md` — hướng dẫn dùng prompt trên Google Flow.
 
@@ -206,7 +207,7 @@ Sau khi in xong toàn bộ output, **kích hoạt handoff sang flow-operator**:
 - **Viết quá nhiều thông tin trong một phân cảnh** → Veo bị quá tải, output không đúng. Chia nhỏ.
 - **Quên trường nào đó** trong câu lệnh → vẫn phải có, nếu không áp dụng thì ghi "(không có)".
 - **Mô tả ngoại hình nhân vật chính trong từng phân cảnh** → không cần, đã có ảnh tham chiếu. Lặp lại sẽ gây khác model.
-- **Dịch các tên trường sang tiếng Việt** ("Góc máy" thay cho "Camera Angle") → giữ nguyên tiếng Anh để Veo parse đúng.
+- **Dịch các tên trường và thuật ngữ kỹ thuật sang tiếng Việt** ("Góc máy" thay cho "Camera Angle", "quay từ trên xuống" thay vì "Top-down shot") → Bắt buộc giữ nguyên tên trường tiếng Anh, đồng thời phần nội dung của Camera Angle, Camera Movement, Lighting & Style cũng **phải dùng tiếng Anh** để Veo parse đúng nhất.
 - **Bịa giọng đọc** không có trong thư viện → luôn lấy từ `references/voice-tones.md`, hoặc nói rõ với người dùng đây là giọng tự đề xuất.
 - **Bỏ qua bước Image Asset Brief** "vì kịch bản có vẻ đơn giản" → sai. Ngay cả khi chỉ có 1 nhân vật + 1 bối cảnh, vẫn phải sinh brief để user tạo Ingredient. Bỏ qua = video lệch nhân vật giữa các shot.
 - **Quên hỏi dọc/ngang** rồi viết luôn theo 16:9 → user thường làm Reels/TikTok cần 9:16. Hỏi 1 câu trước khi viết là rẻ, viết lại cả output là đắt.
